@@ -122,9 +122,21 @@ function handleToggleHideFilter() {
   });
 }
 
+function editListItem(itemId) {
+  // handle edit state
+  // save / cancel
+  console.log(itemId);
+}
+
 function handleToggleEditClicked() {
   $('.js-shopping-list').on('click', `.js-shopping-item`, event => {
     console.log('`handleToggleEditClicked` ran');
+    // Get itemId from DOM
+    const itemId = getItemIdFromElement(event.currentTarget);
+    // Match itemId from DOM to itemId in STORE.items
+    const item = STORE.items.find(item => item.id === itemId);
+    editListItem(item.id);
+    //renderShoppingList();
   });
 }
 
