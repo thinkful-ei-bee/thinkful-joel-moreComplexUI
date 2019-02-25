@@ -43,10 +43,10 @@ function generateItemEdit(item, itemIndex, template) {
       </form>
     </span>
     <div class="shopping-item-controls">
-      <button class="shopping-item-save js-item-toggle">
+      <button class="shopping-item-save js-item-save">
           <span class="button-label">Save</span>
       </button>
-      <button class="shopping-item-cancel js-item-delete">
+      <button class="shopping-item-cancel js-item-cancel">
           <span class="button-label">Cancel</span>
       </button>
     </div>
@@ -157,6 +157,18 @@ function handleToggleEditClicked() {
   });
 }
 
+function handleToggleEditSaveClicked() {
+  $('.js-shopping-list').on('click', `.js-item-save`, event => {
+    console.log('`handleToggleEditSaveClicked` ran');
+  });
+}
+
+function handleToggleEditCancelClicked() {
+  $('.js-shopping-list').on('click', `.js-item-cancel`, event => {
+    console.log('`handleToggleEditCancelClicked` ran');
+  });
+}
+
 function handleShoppingList() {
   renderShoppingList();
   handleNewItemSubmit();
@@ -164,6 +176,8 @@ function handleShoppingList() {
   handleDeleteItemClicked();
   handleToggleHideFilter();
   handleToggleEditClicked();
+  handleToggleEditSaveClicked();
+  handleToggleEditCancelClicked();
 }
 
 // If STORE.editState is true, disable adding of new items
