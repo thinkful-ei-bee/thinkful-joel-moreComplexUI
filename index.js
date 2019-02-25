@@ -48,6 +48,13 @@ function generateShoppingItemsString(shoppingList) {
 function renderShoppingList() {
   // render the shopping list in the DOM
   console.log('`renderShoppingList` ran');
+
+  let filteredItems = STORE.items;
+
+  if(STORE.hideCompleted) {
+    filteredItems = filteredItems.filter(item => !item.checked)
+  }
+  
   const shoppingListItemsString = generateShoppingItemsString(STORE.items);
 
   // insert that HTML into the DOM
@@ -101,6 +108,17 @@ function handleDeleteItemClicked() {
     console.log('`handleDeleteItemClicked` ran');
     const itemId = getItemIdFromElement(event.currentTarget);
     deleteListItem(itemId);
+    renderShoppingList();
+  });
+}
+
+function toggleHideFilter() {
+  STORE.hideCompleted = !STORE.hideCompleted;
+}
+
+function handleToggleHideFilter() {
+  $('.js-hide-completed-toggle').on('click', () => {
+    toggleHideFilter();
     renderShoppingList();
   });
 }
