@@ -122,17 +122,29 @@ function handleToggleHideFilter() {
   });
 }
 
-// this function will be our callback when the page loads. it's responsible for
-// initially rendering the shopping list, and activating our individual functions
-// that handle new item submission and user clicks on the "check" and "delete" buttons
-// for individual shopping list items.
+function handleToggleEditClicked() {
+  $('.js-shopping-list').on('click', `.js-shopping-item`, event => {
+    console.log('`handleToggleEditClicked` ran');
+  });
+}
+
 function handleShoppingList() {
   renderShoppingList();
   handleNewItemSubmit();
   handleItemCheckClicked();
   handleDeleteItemClicked();
   handleToggleHideFilter();
+  handleToggleEditClicked();
 }
+
+// If STORE.editState is true, disable adding of new items
+
+// Click on item text:
+// Change inner html to form with input and submit/cancel buttons. Input field to have value of item pre-populated.
+// Change edit state to true
+
+// Search function
+// Map SHOP.items if item name contains substring
 
 // when the page loads, call 'handleShoppingList'
 $(handleShoppingList);
