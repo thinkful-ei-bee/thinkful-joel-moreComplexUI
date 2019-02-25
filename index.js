@@ -54,8 +54,8 @@ function renderShoppingList() {
   if(STORE.hideCompleted) {
     filteredItems = filteredItems.filter(item => !item.checked)
   }
-  
-  const shoppingListItemsString = generateShoppingItemsString(STORE.items);
+
+  const shoppingListItemsString = generateShoppingItemsString(filteredItems);
 
   // insert that HTML into the DOM
   $('.js-shopping-list').html(shoppingListItemsString);
@@ -83,14 +83,7 @@ function toggleCheckedForListItem(itemId) {
   item.checked = !item.checked;
 }
 
-function deleteListItem(itemId) {
-  console.log(`Deleting item with id ${itemId}`);
-  const item = STORE.items.find(item => item.id === itemId);
-  STORE.items.splice(item, 1);
-}
-
 function getItemIdFromElement(item) {
-  console.log('`getItemIdFromElement` ran');
   return $(item).closest('li').data('item-id');
 }
 
@@ -101,6 +94,12 @@ function handleItemCheckClicked() {
     toggleCheckedForListItem(itemId);
     renderShoppingList();
   });
+}
+
+function deleteListItem(itemId) {
+  console.log(`Deleting item with id ${itemId}`);
+  const item = STORE.items.find(item => item.id === itemId);
+  STORE.items.splice(item, 1);
 }
 
 function handleDeleteItemClicked() {
@@ -132,7 +131,7 @@ function handleShoppingList() {
   handleNewItemSubmit();
   handleItemCheckClicked();
   handleDeleteItemClicked();
-
+  handleToggleHideFilter();
 }
 
 // when the page loads, call 'handleShoppingList'
