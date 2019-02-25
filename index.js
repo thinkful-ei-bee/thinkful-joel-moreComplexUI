@@ -11,12 +11,15 @@
 // we're pre-adding items to the shopping list so there's
 // something to see when the page first loads.
 
-const STORE = [
-  {id: cuid(), name: 'apples', checked: false},
-  {id: cuid(), name: 'oranges', checked: false },
-  {id: cuid(), name: 'milk', checked: false },
-  {id: cuid(), name: 'bread', checked: false },
-];
+const STORE = {
+  items: [
+    {id: cuid(), name: 'apples', checked: false},
+    {id: cuid(), name: 'oranges', checked: false },
+    {id: cuid(), name: 'milk', checked: false },
+    {id: cuid(), name: 'bread', checked: false },
+  ],
+  hideCompleted: false,
+};
 
 function generateItemElement(item, itemIndex, template) {
   return `
@@ -45,8 +48,7 @@ function generateShoppingItemsString(shoppingList) {
 function renderShoppingList() {
   // render the shopping list in the DOM
   console.log('`renderShoppingList` ran');
-  const shoppingListItemsString = 
-  generateShoppingItemsString(STORE);
+  const shoppingListItemsString = generateShoppingItemsString(STORE.items);
 
   // insert that HTML into the DOM
   $('.js-shopping-list').html(shoppingListItemsString);
@@ -54,7 +56,7 @@ function renderShoppingList() {
 
 function addItemToShoppingList(itemName) {
   console.log(`Addint "${itemName}" to shopping list`);
-  STORE.push({id: cuid(), name: itemName, checked: false});
+  STORE.items.push({id: cuid(), name: itemName, checked: false});
 }
 
 function handleNewItemSubmit() {
@@ -70,14 +72,14 @@ function handleNewItemSubmit() {
 
 function toggleCheckedForListItem(itemId) {
   console.log(`Toggling checked property for item with id ${itemId}`);
-  const item = STORE.find(item => item.id === itemId);
+  const item = STORE.items.find(item => item.id === itemId);
   item.checked = !item.checked;
 }
 
 function deleteListItem(itemId) {
   console.log(`Deleting item with id ${itemId}`);
-  const item = STORE.find(item => item.id === itemId);
-  STORE.splice(item, 1);
+  const item = STORE.items.find(item => item.id === itemId);
+  STORE.items.splice(item, 1);
 }
 
 function getItemIdFromElement(item) {
