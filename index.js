@@ -13,10 +13,10 @@
 
 const STORE = {
   items: [
-    {id: cuid(), name: 'apples', checked: false},
-    {id: cuid(), name: 'oranges', checked: false },
-    {id: cuid(), name: 'milk', checked: false },
-    {id: cuid(), name: 'bread', checked: false },
+    {id: cuid(), name: 'apples', checked: false, edit: true},
+    {id: cuid(), name: 'oranges', checked: false, edit: false },
+    {id: cuid(), name: 'milk', checked: false, edit: false },
+    {id: cuid(), name: 'bread', checked: false, edit: false },
   ],
   hideCompleted: false,
 };
@@ -36,11 +36,34 @@ function generateItemElement(item, itemIndex, template) {
   </li>`;
 }
 
+function generateItemEdit(item, itemIndex, template) {
+  return `
+  <li data-item-id="${item.id}">
+    <span class="shopping-item js-shopping-item ${item.checked ? 'shopping-item__checked' : ''}">
+    
+      <form id="js-shopping-list-form">
+        <label for="shopping-list-entry-edit">Add an item</label>
+        <input type="text" name="shopping-list-entry-edit" 
+          class="js-shopping-list-entry" value="${item.name}">
+        <button type="submit">Add item</button>
+      </form>
+    </span>
+    <div class="shopping-item-controls">
+      <button class="shopping-item-save js-item-toggle">
+          <span class="button-label">check</span>
+      </button>
+      <button class="shopping-item-cancel js-item-delete">
+          <span class="button-label">delete</span>
+      </button>
+    </div>
+  </li>`;
+}
+
 function generateShoppingItemsString(shoppingList) {
   console.log('Generating shopping list element');
 
-  const items = shoppingList.map((item, index) => 
-    generateItemElement(item, index));
+  const items = shoppingList.map((item, index) =>
+    item.edit === true ? generateItemEdit(item, index) : generateItemElement(item, index));
   
   return items.join('');
 }
