@@ -22,8 +22,7 @@ const STORE = {
 };
 
 function generateItemElement(item, itemIndex, template) {
-  return `
-  <li data-item-id="${item.id}">
+  return `<li data-item-id="${item.id}">
     <span class="shopping-item js-shopping-item ${item.checked ? 'shopping-item__checked' : ''}">${item.name}</span>
     <div class="shopping-item-controls">
       <button class="shopping-item-toggle js-item-toggle">
@@ -37,23 +36,18 @@ function generateItemElement(item, itemIndex, template) {
 }
 
 function generateItemEdit(item, itemIndex, template) {
-  return `
-  <li data-item-id="${item.id}">
+  return `<li data-item-id="${item.id}">
     <span class="shopping-item js-shopping-item ${item.checked ? 'shopping-item__checked' : ''}">
-    
       <form id="js-shopping-list-form">
-        <label for="shopping-list-entry-edit">Add an item</label>
-        <input type="text" name="shopping-list-entry-edit" 
-          class="js-shopping-list-entry" value="${item.name}">
-        <button type="submit">Add item</button>
+        <input type="text" name="shopping-list-entry-edit" class="js-shopping-list-entry" value="${item.name}">
       </form>
     </span>
     <div class="shopping-item-controls">
       <button class="shopping-item-save js-item-toggle">
-          <span class="button-label">check</span>
+          <span class="button-label">Save</span>
       </button>
       <button class="shopping-item-cancel js-item-delete">
-          <span class="button-label">delete</span>
+          <span class="button-label">Cancel</span>
       </button>
     </div>
   </li>`;
