@@ -152,8 +152,8 @@ function handleToggleEditClicked() {
     const itemId = getItemIdFromElement(event.currentTarget);
     // Match itemId from DOM to itemId in STORE.items
     const item = STORE.items.find(item => item.id === itemId);
-    editListItem(item.id);
-    //renderShoppingList();
+    editListItem(item);
+    renderShoppingList();
   });
 }
 
@@ -163,9 +163,17 @@ function handleToggleEditSaveClicked() {
   });
 }
 
+function toggleEditForListItem(itemId) {
+  console.log(itemId);
+  const item = STORE.items.find(item => item.id === itemId);
+  item.edit = !item.edit;
+}
+
 function handleToggleEditCancelClicked() {
   $('.js-shopping-list').on('click', `.js-item-cancel`, event => {
-    console.log('`handleToggleEditCancelClicked` ran');
+    const itemId = getItemIdFromElement(event.currentTarget);
+    toggleEditForListItem(itemId);
+    renderShoppingList();
   });
 }
 
