@@ -139,27 +139,36 @@ function handleToggleHideFilter() {
   });
 }
 
-function editListItem(itemId) {
-  // handle edit state
-  // save / cancel
-  console.log(itemId);
-}
-
 function handleToggleEditClicked() {
+  //TODO
+  // If clicking on current item already in edit more do nothing
+  //
+  // if any item has edit state alert "please finish editing that item"
+  // OR
+  // on click, if any other item has edit state then cancel current edit state and turn this one on
+
   $('.js-shopping-list').on('click', `.js-shopping-item`, event => {
     console.log('`handleToggleEditClicked` ran');
     // Get itemId from DOM
     const itemId = getItemIdFromElement(event.currentTarget);
     // Match itemId from DOM to itemId in STORE.items
     const item = STORE.items.find(item => item.id === itemId);
-    editListItem(item);
-    renderShoppingList();
+    toggleEditForListItem(itemId)
+    //renderShoppingList();
   });
+}
+
+function toggleSaveForListItem(itemId) {
+  console.log(itemId);
+  const item = STORE.items.find(item => item.id === itemId);
+  item.name = $('.js-shopping-list-entry').val();
 }
 
 function handleToggleEditSaveClicked() {
   $('.js-shopping-list').on('click', `.js-item-save`, event => {
     console.log('`handleToggleEditSaveClicked` ran');
+    const itemId = getItemIdFromElement(event.currentTarget);
+    renderShoppingList();
   });
 }
 
@@ -167,6 +176,7 @@ function toggleEditForListItem(itemId) {
   console.log(itemId);
   const item = STORE.items.find(item => item.id === itemId);
   item.edit = !item.edit;
+  renderShoppingList();
 }
 
 function handleToggleEditCancelClicked() {
