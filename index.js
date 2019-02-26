@@ -154,7 +154,8 @@ function handleToggleEditClicked() {
     // Match itemId from DOM to itemId in STORE.items
     const item = STORE.items.find(item => item.id === itemId);
     toggleEditForListItem(itemId)
-    //renderShoppingList();
+    renderShoppingList();
+    $('.js-shopping-list-entry').focus();
   });
 }
 
@@ -176,7 +177,7 @@ function toggleEditForListItem(itemId) {
   console.log(itemId);
   const item = STORE.items.find(item => item.id === itemId);
   item.edit = !item.edit;
-  renderShoppingList();
+  //renderShoppingList();
 }
 
 function handleToggleEditCancelClicked() {
